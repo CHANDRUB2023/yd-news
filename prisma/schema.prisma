@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model News {
+  id          String   @id @default(uuid())
+  titleEn     String
+  titleTa     String
+  summaryEn   String
+  summaryTa   String
+  contentEn   String
+  contentTa   String
+  category    String   // e.g. "party-news", "district-news", "youth-wing", "womens-wing", "press-release", "election-updates", "government-issues"
+  status      String   // "published" or "draft"
+  date        DateTime @default(now())
+  views       Int      @default(0)
+  imageUrl    String?
+  videoUrl    String?
+  comments    Comment[]
+}
+
+model Event {
+  id            String   @id @default(uuid())
+  titleEn       String
+  titleTa       String
+  descriptionEn String
+  descriptionTa String
+  date          DateTime
+  locationEn    String
+  locationTa    String
+  status        String   // "upcoming" or "completed"
+}
+
+model Speech {
+  id           String   @id @default(uuid())
+  titleEn      String
+  titleTa      String
+  speakerEn    String
+  speakerTa    String
+  date         DateTime
+  transcriptEn String
+  transcriptTa String
+  videoUrl     String?
+}
+
+model District {
+  id           String   @id @default(uuid())
+  nameEn       String
+  nameTa       String
+  leaderNameEn String
+  leaderNameTa String
+  contact      String
+  email        String
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  role      String   // "admin", "editor", "user"
+  createdAt DateTime @default(now())
+}
+
+model Comment {
+  id         String   @id @default(uuid())
+  newsId     String
+  authorName String
+  text       String
+  date       DateTime @default(now())
+  approved   Boolean  @default(false)
+  news       News     @relation(fields: [newsId], references: [id], onDelete: Cascade)
+}
+
+model Newsletter {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  subscribedAt DateTime @default(now())
+}
