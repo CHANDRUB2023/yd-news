@@ -119,9 +119,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Left Branding & Menu Toggle */}
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-7 bg-[#C8102E] relative rounded overflow-hidden flex items-center justify-center border border-slate-200 shadow-sm">
-              <div className="absolute top-0 right-0 w-0 h-0 border-t-[28px] border-t-white border-l-[20px] border-l-transparent"></div>
-              <span className="absolute top-0.5 right-0.5 text-[#0E6233] text-[10px] font-black leading-none">★</span>
+            <div className="w-8 h-8 rounded-full border border-slate-200 shadow-sm overflow-hidden bg-white shrink-0 p-0.5 flex items-center justify-center">
+              <img src="/img/flag.svg" alt="Young Democrats Flag" className="w-full h-full rounded-full object-cover" />
             </div>
             <div className="leading-tight hidden sm:block">
               <h2 className="text-xs font-black text-slate-900 uppercase tracking-tight">YOUNG DEMOCRATS</h2>

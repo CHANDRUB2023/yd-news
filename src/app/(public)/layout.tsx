@@ -77,30 +77,29 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
 
       {/* 2. MAIN NAVIGATION HEADER */}
       <header className="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
+          <div className="flex items-center justify-between h-20 gap-2">
             
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 shrink-0">
-              <div className="w-12 h-9 bg-[#C8102E] relative rounded overflow-hidden flex items-center justify-center border border-slate-200 shadow-md">
-                <div className="absolute top-0 right-0 w-0 h-0 border-t-[36px] border-t-white border-l-[26px] border-l-transparent"></div>
-                <span className="absolute top-1 right-1 text-[#0E6233] text-sm font-black leading-none">★</span>
+            {/* Round Logo */}
+            <Link href="/" className="flex items-center gap-2.5 shrink-0">
+              <div className="w-11 h-11 rounded-full border-2 border-[#C8102E]/30 shadow-md overflow-hidden bg-white shrink-0 flex items-center justify-center p-0.5 group hover:scale-105 transition-transform">
+                <img src="/img/flag.svg" alt="Young Democrats Flag" className="w-full h-full rounded-full object-cover" />
               </div>
               <div className="leading-tight">
-                <h1 className="text-base sm:text-lg font-black text-slate-900 tracking-tight uppercase">YOUNG DEMOCRATS</h1>
-                <p className="text-[9px] font-extrabold text-[#C8102E] tracking-widest uppercase">{t('slogan')}</p>
+                <h1 className="text-sm sm:text-base md:text-lg font-black text-slate-900 tracking-tight uppercase">YOUNG DEMOCRATS</h1>
+                <p className="text-[9px] sm:text-[10px] font-extrabold text-[#C8102E] tracking-wider uppercase">{t('slogan')}</p>
               </div>
             </Link>
 
-            {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-1">
+            {/* Desktop Navigation Links (Responsive compact spacing for Tamil text) */}
+            <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 overflow-x-auto no-scrollbar py-1">
               {mainNavItems.map((item) => {
                 const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
                 return (
                   <Link
                     key={item.nameKey}
                     href={item.href}
-                    className={`relative px-3 py-2 text-xs font-extrabold transition-colors flex items-center gap-1 ${
+                    className={`relative px-2 xl:px-2.5 py-1.5 text-[11px] xl:text-xs font-extrabold transition-colors whitespace-nowrap flex items-center gap-1 ${
                       isActive 
                         ? 'text-[#C8102E]' 
                         : 'text-slate-700 hover:text-[#C8102E]'
@@ -108,7 +107,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                   >
                     <span>{t(item.nameKey)}</span>
                     {isActive && (
-                      <span className="absolute bottom-0 inset-x-2 h-0.75 bg-[#C8102E] rounded-full"></span>
+                      <span className="absolute bottom-0 inset-x-1.5 h-0.75 bg-[#C8102E] rounded-full"></span>
                     )}
                   </Link>
                 );
@@ -116,12 +115,12 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
             </nav>
 
             {/* Right Action Buttons */}
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
               
               {/* Language switch button for small screens */}
               <button 
                 onClick={() => setLanguage(language === 'ta' ? 'en' : 'ta')}
-                className="md:hidden text-xs font-extrabold text-[#C8102E] bg-red-50 border border-red-200 px-2 py-1 rounded"
+                className="md:hidden text-[11px] font-extrabold text-[#C8102E] bg-red-50 border border-red-200 px-2 py-1 rounded"
               >
                 {language === 'ta' ? 'ENG' : 'தமிழ்'}
               </button>
@@ -240,9 +239,8 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
           {/* Col 1: Brand */}
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-6 bg-[#C8102E] relative rounded overflow-hidden flex items-center justify-center border border-white/20">
-                <div className="absolute top-0 right-0 w-0 h-0 border-t-[24px] border-t-white border-l-[16px] border-l-transparent"></div>
-                <span className="absolute top-0.5 right-0.5 text-[#0E6233] text-[9px] font-black">★</span>
+              <div className="w-8 h-8 rounded-full border border-white/30 shadow overflow-hidden bg-white shrink-0 p-0.5 flex items-center justify-center">
+                <img src="/img/flag.svg" alt="Young Democrats Flag" className="w-full h-full rounded-full object-cover" />
               </div>
               <span className="text-sm font-black tracking-tight uppercase text-white">YOUNG DEMOCRATS</span>
             </div>
@@ -277,7 +275,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
           {/* Col 4: Contact & Portal */}
           <div className="space-y-2">
             <h4 className="font-extrabold uppercase text-white tracking-wider border-l-2 border-[#C8102E] pl-2">{t('nav.admin')}</h4>
-            <p className="text-slate-400">Authorized login for Super Admin, Admin, Editor, Reporter, and District Coordinators.</p>
+            <p className="text-slate-400">Authorized login for Admin and Editorial team members.</p>
             <Link 
               href="/admin/login" 
               className="inline-flex items-center gap-1.5 bg-[#0E6233] hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition-colors mt-2"

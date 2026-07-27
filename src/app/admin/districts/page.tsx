@@ -200,9 +200,9 @@ export default function DistrictsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
         <div>
           <h1 className="text-xl font-black text-slate-900 flex items-center gap-2">
-            <MapPin className="w-5 h-5 text-[#C8102E]" /> District Units & Photo Gallery Management
+            <MapPin className="w-5 h-5 text-[#C8102E]" /> State & District Coordinators Management
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">Manage district landmark photos, secretary portraits, contact details, and cadres count</p>
+          <p className="text-xs text-slate-500 mt-0.5">Manage State Coordinators, nested District Coordinators, landmark photos, and cadres count</p>
         </div>
         <button
           onClick={() => setIsAddModalOpen(true)}

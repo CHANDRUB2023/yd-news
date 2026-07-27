@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import { Newspaper, Calendar, Eye, ArrowRight, Search, Filter } from 'lucide-react';
 
@@ -68,46 +69,66 @@ export default function NewsPage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8 font-sans">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-8 font-sans">
       
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-[#C8102E] text-white p-8 md:p-12 rounded-3xl shadow-xl relative overflow-hidden">
+      {/* Header Banner with Circular Flag Image */}
+      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-[#C8102E] text-white p-6 sm:p-8 md:p-12 rounded-3xl shadow-xl relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="relative z-10 max-w-2xl space-y-3">
-          <span className="bg-white/20 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-white/20">
-            {t('nav.news')}
-          </span>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight">
+          <div className="flex items-center gap-2">
+            <span className="bg-white/20 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-white/20">
+              {t('nav.news')}
+            </span>
+            <span className="bg-[#0E6233] text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow">
+              {language === 'ta' ? 'அதிகாரப்பூர்வ செய்திப் பிரிவு' : 'Official News Section'}
+            </span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight">
             {language === 'ta' ? 'அனைத்து அதிகாரப்பூர்வ செய்திகள்' : 'Official News Bulletin & Updates'}
           </h1>
-          <p className="text-slate-200 text-sm md:text-base leading-relaxed">
+          <p className="text-slate-200 text-xs sm:text-sm md:text-base leading-relaxed">
             {language === 'ta' 
               ? 'இளம் ஜனநாயகவாதிகள் இயக்கத்தின் அண்மைக்கால செய்திகள், அறிக்கைகள் மற்றும் கட்சி அறிவிப்புகளை உடனுக்குடன் பெறுக.'
               : 'Stay updated with verified releases, district campaigns, and leadership announcements from Young Democrats.'}
           </p>
         </div>
+
+        {/* Circular Flag Image Element */}
+        <div className="relative z-10 shrink-0 self-center md:self-auto">
+          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-white/30 shadow-2xl overflow-hidden bg-white/10 backdrop-blur flex items-center justify-center p-1 group hover:scale-105 transition-transform duration-300">
+            <img 
+              src="/img/flag.svg" 
+              alt="Young Democrats Party Flag" 
+              className="w-full h-full rounded-full object-cover shadow-inner"
+              onError={(e) => {
+                // Fallback graphic if SVG fails
+                (e.target as HTMLImageElement).src = "/icon.png";
+              }}
+            />
+          </div>
+        </div>
       </div>
 
-      {/* Search & Category Filter Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
-        {/* Search */}
-        <div className="relative w-full md:w-80">
+      {/* Search & Category Filter Info Bar (Fixed for Tamil Layout) */}
+      <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 w-full">
+        {/* Search Input */}
+        <div className="relative w-full md:w-80 shrink-0">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={t('nav.searchPlaceholder')}
-            className="w-full bg-slate-50 border border-slate-200 rounded-xl py-2 pl-10 pr-4 text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C8102E]"
+            className="w-full bg-slate-50 border border-slate-200 rounded-xl py-2.5 pl-10 pr-4 text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C8102E]"
           />
         </div>
 
-        {/* Category Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 text-xs font-bold">
+        {/* Category Filter Pills (Responsive scroll for long Tamil titles) */}
+        <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 text-xs font-bold shrink scrollbar-thin">
           {categories.map(cat => (
             <button
               key={cat.key}
               onClick={() => setSelectedCategory(cat.key)}
-              className={`px-3.5 py-2 rounded-xl transition-all whitespace-nowrap ${
+              className={`px-3.5 py-2 rounded-xl transition-all whitespace-nowrap shrink-0 ${
                 selectedCategory === cat.key
                   ? 'bg-[#C8102E] text-white shadow-md'
                   : 'bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200'
@@ -136,7 +157,7 @@ export default function NewsPage() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {filtered.map(item => (
             <article 
               key={item.id} 
@@ -148,12 +169,19 @@ export default function NewsPage() {
                   alt={item.titleEn}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
+                
+                {/* Category Badge */}
                 <span className="absolute top-3 left-3 bg-[#0E6233] text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full shadow">
                   {item.category}
                 </span>
+
+                {/* Circular Flag Badge overlay on News Card */}
+                <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white p-0.5 border border-white/60 shadow-md">
+                  <img src="/img/flag.svg" alt="Flag" className="w-full h-full rounded-full object-cover" />
+                </div>
               </div>
 
-              <div className="p-6 flex-grow flex flex-col justify-between space-y-4">
+              <div className="p-5 md:p-6 flex-grow flex flex-col justify-between space-y-4">
                 <div className="space-y-2">
                   <div className="flex items-center gap-4 text-slate-400 text-[10px] font-bold">
                     <span className="flex items-center gap-1">
@@ -191,3 +219,4 @@ export default function NewsPage() {
     </div>
   );
 }
+
